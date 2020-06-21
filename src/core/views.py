@@ -13,6 +13,7 @@ class TestView(APIView):
             'name': 'John',
             'age': 23
         }
+        return Response(data)
 
 # def test_view(request):
 #     data = {
