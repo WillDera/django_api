@@ -13,12 +13,17 @@ from .serializers import PostSerializer
 from .models import Post
 
 
-class PostView(mixins.ListModelMixin, generics.GenericAPIView):
+class PostView(
+        mixins.CreateModelMixin,
+        mixins.ListModelMixin, generics.GenericAPIView):
     serializer_class = PostSerializer
     queryset = Post.objects.all()
 
     def get(self, request, *args, **kwargs):
-        return self.list(self, request, *args, **kwargs)
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
 
 # class TestView(APIView):
