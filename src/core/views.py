@@ -7,14 +7,15 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics
+from rest_framework import mixins
 
 from .serializers import PostSerializer
 from .models import Post
 
 
-class PostView(generics.GenericAPIView):
+class PostView(mixins.ListModelMixin, generics.GenericAPIView):
     serializer_class = PostSerializer
-    query_set = Post.objects.all()
+    queryset = Post.objects.all()
 
     def get(self, request, *args, **kwargs):
         return self.list(self, request, *args, **kwargs)
